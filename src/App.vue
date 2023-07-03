@@ -1,18 +1,18 @@
 <script setup lang="ts">
-import HelloWorld from './components/HelloWorld.vue'
+import HelloWorld from './components/HelloWorld.vue';
 import test2 from './components/test2.vue';
 </script>
 
 <template>
- <div class="main">
-  <h1>d3.js test</h1>
-  <HelloWorld msg="Vite + Vue" />
-  <test2></test2>
- </div>
+  <div class="main">
+    <h1>d3.js test</h1>
+    <HelloWorld msg="Vite + Vue" />
+    <test2></test2>
+  </div>
 </template>
 
 <style scoped>
-.main{
+.main {
   width: 100%;
   height: 100%;
 }
