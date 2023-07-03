@@ -28,7 +28,7 @@
       const width = 800 - margin.left - margin.right
       const height = 500 - margin.top - margin.bottom
 
-      // 1.选择元素 添加svgds
+      // 1.选择元素 添加svg
       let chart = d3
         .selectAll('.test-d3')
         .select('.d3-bar')
