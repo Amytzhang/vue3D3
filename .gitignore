@@ -1,8 +1,16 @@
 .git
 node_modules
 .DS_Store
+.idea
+.vscode/*
+!.vscode/extensions.json
 *.suo
 *.ntvs*
+*.njsproj
+*.sln
+*.sw?
+package-lock.json
+yarn.lock
 dist
 dist_ssr
 *.local
