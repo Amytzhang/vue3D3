@@ -1,0 +1,11 @@
+.git
+node_modules
+.DS_Store
+*.suo
+*.ntvs*
+dist
+dist_ssr
+*.local
+*.log
+npm-debug.log*
+pnpm-debug.log*
