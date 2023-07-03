@@ -5,19 +5,18 @@
 </template>
 
 <script lang="ts" setup>
-import * as d3 from "d3"
-import d3Tip from 'd3-tip'
-import {reactive,onMounted} from 'vue'
-const  data= reactive([
-        { letter: '一', frequency: 0.08167 },
-        { letter: '二', frequency: 0.13492 },
-        { letter: '三', frequency: 0.02782 },
-        { letter: '四', frequency: 0.04253 },
-        { letter: '五', frequency: 0.12702 },
-        { letter: '六', frequency: 0.02288 },
-        { letter: '日', frequency: 0.22288 }
-      ])
-
+  import * as d3 from "d3"
+  import d3Tip from 'd3-tip'
+  import {reactive,onMounted} from 'vue'
+  const  data= reactive([
+    { letter: '一', frequency: 0.08167 },
+    { letter: '二', frequency: 0.13492 },
+    { letter: '三', frequency: 0.02782 },
+    { letter: '四', frequency: 0.04253 },
+    { letter: '五', frequency: 0.12702 },
+    { letter: '六', frequency: 0.02288 },
+    { letter: '日', frequency: 0.22288 }
+  ])
   const  initChart =()=> {
       //画布周边空白
       const margin = {
@@ -38,7 +37,7 @@ const  data= reactive([
         .attr('height', height + margin.top + margin.bottom)
 
       // 2.设置x轴和y轴坐标映射关系 比例尺 (scale) domain(定义域) range (值域)
-      let max = d3.max(data, function (d) {
+      let max = d3.max(data, (d:any)=> {
         return d.frequency
       })
       let xScale = d3.scaleBand().domain(data.map(function (d) {
@@ -55,8 +54,7 @@ const  data= reactive([
       let tip = d3Tip() // 设置tip
         .attr('class', 'd3-tip')
         .offset([-10, 0])
-        .html(function (d) {
-          console.log('d------', d)
+        .html((d:any)=>{
           return (
             '<strong>星期' +
             d.target.__data__.letter +
@@ -72,13 +70,11 @@ const  data= reactive([
         .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')') // 设最外包层在总图上的相对位置
 
       //绘制x轴 y轴
-      g
-        .append('g')
+      g.append('g')
         .attr('class', 'axis axis-x')
         .attr('transform', 'translate(' + 0 + ',' + height + ')')
         .call(xAxis)
-      g
-        .append('g')
+      g.append('g')
         .attr('class', 'axis axis-y')
         // .attr('transform', 'translate(40, -20)')
         .call(yAxis)
@@ -86,53 +82,51 @@ const  data= reactive([
         .style('text-anchor', 'middle')
         .style('fill', '#fff')
         .text('空置率 (%)')
-
-
       //画柱子x y坐标 移入移出柱子
       g.selectAll('.bar').data(data)
-        .enter()
-        .append('rect')
-        .on('mouseover', tip.show)
-        .on('mouseout', tip.hide)
-        .attr('class', 'bar')
-        .attr('x', function (d) {
-          return xScale(d.letter)
-        })
-        .attr('y', function (d) {
-          return yScale(d.frequency)
-        })
-        .attr('width', xScale.bandwidth() / 2)
-        .attr('height', function (d) {
-          return height - yScale(d.frequency)
-        })
-        .attr('transform', 'translate(' + xScale.bandwidth() / 4 + ',' + 0 + ')') // 设最外包层在总图上的相对位置
-        .attr('fill', '#8a2be2')
+      .enter()
+      .append('rect')
+      .on('mouseover', tip.show)
+      .on('mouseout', tip.hide)
+      .attr('class', 'bar')
+      .attr('x', (d:any)=>{
+        return xScale(d.letter)
+      })
+      .attr('y', (d:any)=>{
+        return yScale(d.frequency)
+      })
+      .attr('width', xScale.bandwidth() / 2)
+      .attr('height',  (d:any)=> {
+        return height - yScale(d.frequency)
+      })
+      .attr('transform', 'translate(' + xScale.bandwidth() / 4 +',' + 0 + ')') // 设最外包层在总图上的相对位置
+      .attr('fill', '#8a2be2')
 
       //输出图上数字
       g.append('g')
-        .attr('transform', 'translate(' + xScale.bandwidth() / 5 + ',' + 5 + ')') // 设最外包层在总图上的相对位置
-        .attr('class', 'bar-text')
-        .selectAll('text')
-        .data(data)
-        .enter()
-        .append('text')
-        .attr('fill', '#ffffff')
-        .attr('font-size', '14px')
-        .attr('text-anchor', 'middle') //文本对齐方式
-        .attr('x', function (d) {
-          return xScale(d.letter)
-        })
-        .attr('y', function (d) {
-          return yScale(d.frequency)
-        })
-        .attr('dx', 30)
-        .attr('dy', '1em')
-        .text(function (d) {
-          return (d.frequency * 100).toFixed(2) + '%'
-        })
-        .on('mouseover', tip.show)
-        .on('mouseout', tip.hide)
-    }
+      .attr('transform', 'translate(' + xScale.bandwidth() / 5 +',' + 5 + ')') // 设最外包层在总图上的相对位置
+      .attr('class', 'bar-text')
+      .selectAll('text')
+      .data(data)
+      .enter()
+      .append('text')
+      .attr('fill', '#ffffff')
+      .attr('font-size', '14px')
+      .attr('text-anchor', 'middle') //文本对齐方式
+      .attr('x', (d:any)=> {
+        return xScale(d.letter)
+      })
+      .attr('y', (d:any)=> {
+        return yScale(d.frequency)
+      })
+      .attr('dx', 30)
+      .attr('dy', '1em')
+      .text((d:any)=> {
+        return (d.frequency * 100).toFixed(2) + '%'
+      })
+      .on('mouseover', tip.show)
+      .on('mouseout', tip.hide)
+  }
 
   onMounted(() => {
     initChart() 
