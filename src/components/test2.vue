@@ -83,6 +83,7 @@ onUnmounted(() => {
 <template>
   <div style="margin: 1em 0">
     <svg
+      ref="container"
       :width="width"
       :height="height"
       :viewBox="[-width / 2, -height / 2, width, height].join(' ')"
@@ -93,9 +94,7 @@ onUnmounted(() => {
         z-index: 2;
         max-width: 100%;
         height: auto;
-      "
-      ref="container"
-    ></svg>
+      "></svg>
     <a
       href="https://observablehq.com/@d3/force-directed-lattice?intent=fork"
       style="font-size: smaller"
